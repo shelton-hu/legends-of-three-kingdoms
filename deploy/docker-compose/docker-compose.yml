@@ -13,7 +13,7 @@ services:
     volumes:
       - ${DATA_PATH}/etcd:/data
     ports:
-     - "12379:2379"
+     - "1379:2379"
     restart: always
 
   ltk-api-gateway:
@@ -21,7 +21,7 @@ services:
     command: "api-gateway"
     container_name: ltk-api-gateway
     ports:
-      - "9000:9000"
+      - "9100:9000"
     environment:
       - LTK_LOG_LEVEL=${LTK_LOG_LEVEL}
     logging:
@@ -44,7 +44,7 @@ services:
       - LTK_LOG_LEVEL=${LTK_LOG_LEVEL}
       - LTK_GRPC_SHOW_ERROR_CAUSE=${LTK_GRPC_SHOW_ERROR_CAUSE}
     ports:
-      - "9001:9001"
+      - "9101:9001"
     depends_on:
       - ltk-etcd
       - ltk-mysql-prisma
@@ -59,7 +59,7 @@ services:
       - LTK_LOG_LEVEL=${LTK_LOG_LEVEL}
       - LTK_GRPC_SHOW_ERROR_CAUSE=${LTK_GRPC_SHOW_ERROR_CAUSE}
     ports:
-      - "9002:9002"
+      - "9102:9002"
     depends_on:
       - ltk-etcd
       - ltk-mysql-prisma
