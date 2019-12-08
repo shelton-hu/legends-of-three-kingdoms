@@ -1,0 +1,105 @@
+version: "3"
+
+services:
+  ltk-etcd:
+    image: quay.io/coreos/etcd:v3.2.18
+    container_name: ltk-etcd
+    command: etcd --data-dir /data --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://ltk-etcd:2379 --max-snapshots 5 --max-wals 5 --auto-compaction-retention=168
+    logging:
+      driver: "json-file"
+      options:
+        max-size: ${LTK_LOG_MAX_SIZE}
+        max-file: ${LTK_LOG_MAX_FILE}
+    volumes:
+      - ${DATA_PATH}/etcd:/data
+    ports:
+     - "12379:2379"
+    restart: always
+
+  ltk-api-gateway:
+    image: ${IMAGE}
+    command: "api-gateway"
+    container_name: ltk-api-gateway
+    ports:
+      - "9000:9000"
+    environment:
+      - LTK_LOG_LEVEL=${LTK_LOG_LEVEL}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: ${LTK_LOG_MAX_SIZE}
+        max-file: ${LTK_LOG_MAX_FILE}
+    depends_on:
+      - ltk-etcd
+      - ltk-iam-manager
+      - ltk-process-manager
+    restart: always
+
+  ltk-iam-manager:
+    image: ${IMAGE}
+    command: "iam-manager"
+    container_name: ltk-iam-manager
+    environment:
+      - LTK_MYSQL_PRISMA_ENDPOINT=${LTK_MYSQL_PRISMA_ENDPOINT}
+      - LTK_LOG_LEVEL=${LTK_LOG_LEVEL}
+      - LTK_GRPC_SHOW_ERROR_CAUSE=${LTK_GRPC_SHOW_ERROR_CAUSE}
+    ports:
+      - "9001:9001"
+    depends_on:
+      - ltk-etcd
+      - ltk-mysql-prisma
+    restart: always 
+
+  ltk-process-manager:
+    image: ${IMAGE}
+    command: "process-manager"
+    container_name: ltk-process-manager
+    environment:
+      - LTK_MYSQL_PRISMA_ENDPOINT=${LTK_MYSQL_PRISMA_ENDPOINT}
+      - LTK_LOG_LEVEL=${LTK_LOG_LEVEL}
+      - LTK_GRPC_SHOW_ERROR_CAUSE=${LTK_GRPC_SHOW_ERROR_CAUSE}
+    ports:
+      - "9002:9002"
+    depends_on:
+      - ltk-etcd
+      - ltk-mysql-prisma
+    restart: always 
+
+  ltk-mysql-prisma-deploy:
+    image: ${LTK_MYSQL_PRISMA_DEPLOY_IMAGE}
+    container_name: ltk-mysql-prisma-deploy
+    command: prisma deploy
+    environment:
+      - LTK_MYSQL_PRISMA_ENDPOINT=${LTK_MYSQL_PRISMA_ENDPOINT}
+    depends_on:
+      - ltk-mysql-prisma
+  ltk-mysql-prisma:
+    image: prismagraphql/prisma:1.34
+    container_name: ltk-mysql-prisma
+    environment:
+      PRISMA_CONFIG: |
+        port: 4466
+        databases:
+          default:
+            connector: mysql
+            host: ltk-db-mysql
+            user: root
+            password: ${MYSQL_ROOT_PASSWORD}
+            rawAccess: true
+            port: 3306
+            migrations: true
+    ports:
+      - "1466:4466"
+    depends_on: 
+      - ltk-db-mysql
+    restart: always
+  ltk-db-mysql:
+    image: mysql:5.7
+    container_name: ltk-db-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${DATA_PATH}/mysql:/var/lib/mysql
+    ports:
+      - "1306:3306"
+    restart: always

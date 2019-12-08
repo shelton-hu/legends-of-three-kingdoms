@@ -1,0 +1,8 @@
+*.exe
+go.sum
+ltk-v*
+
+/.vscode
+.vscode/
+.prettierrc
+
