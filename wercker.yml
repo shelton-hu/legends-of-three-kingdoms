@@ -38,7 +38,8 @@ build:
         code: |
           go build ./cmd/api-gateway
           go build ./cmd/iam-manager
-          go build ./cmd/process-engine
+          go build ./cmd/room-engine
+          go build ./cmd/game-engine
 
     # Test the project
     - script:
