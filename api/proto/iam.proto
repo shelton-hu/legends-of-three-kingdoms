@@ -15,7 +15,7 @@ service TokenService {
             description: ""
         };
         option (google.api.http) = {
-            post: "/v1/oauth2/token:sign_in_or_sign_up"
+            post: "/v1/oauth2/token"
             body: "*"
         };
     }
@@ -25,7 +25,7 @@ service TokenService {
             description: ""
         };
         option (google.api.http) = {
-            post: "/v1/token:sign_out"
+            post: "/v1/sign_out"
             body: "*"
         };  
     }

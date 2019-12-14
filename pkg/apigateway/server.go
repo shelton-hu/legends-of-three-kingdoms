@@ -21,18 +21,22 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
+	"github.com/shelton-hu/util/hashutil"
 	"github.com/shelton-hu/util/iputil"
+	"github.com/shelton-hu/util/pointerutil"
 
 	staticSpec "github.com/shelton-hu/legends-of-three-kingdoms/pkg/apigateway/spec"
 	staticSwaggerUI "github.com/shelton-hu/legends-of-three-kingdoms/pkg/apigateway/swagger-ui"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/config"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/constants"
+	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/gerr"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/logger"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/manager"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/pb"
+	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/pi"
+	prisma "github.com/shelton-hu/legends-of-three-kingdoms/pkg/prisma/mysql-prisma-client"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/util/senderutil"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/version"
-	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/gerr"
 )
 
 type Server struct {
@@ -119,12 +123,11 @@ func serveMuxSetSender(mux *runtime.ServeMux, key string) http.Handler {
 		}
 
 		// 2.get & validate sender
-		var err error
 		ctx := req.Context()
 		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		auth := strings.SplitN(req.Header.Get(Authorization), " ", 2)
 		if auth[0] != "Bearer" {
-			err = gerr.New(ctx, gerr.Unauthenticated, gerr.ErrorAuthFailure)
+			err := gerr.New(ctx, gerr.Unauthenticated, gerr.ErrorAuthFailure)
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
@@ -138,11 +141,23 @@ func serveMuxSetSender(mux *runtime.ServeMux, key string) http.Handler {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
+		user, err := pi.Global().MysqlPrisma(ctx).User(prisma.UserWhereUniqueInput{
+			ID: &sender.UserId,
+		}).Exec(ctx)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		if hashutil.GetStringMd5(auth[1]) != pointerutil.GetString(user.Token) {
+			err = gerr.New(ctx, gerr.Unauthenticated, gerr.ErrorAuthFailure)
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
 
 		// 3.set & delete header's key
 		req.Header.Set(senderutil.SenderKey, sender.ToJson())
 		req.Header.Del(Authorization)
-		
+
 		// 4.route
 		mux.ServeHTTP(w, req)
 	})

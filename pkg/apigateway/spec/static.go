@@ -52,7 +52,7 @@ var Files = map[string]string{
         ]
       }
     },
-    "/v1/oauth2/token:sign_in_or_sign_up": {
+    "/v1/oauth2/token": {
       "post": {
         "summary": "快速登录",
         "operationId": "SignInOrSignUp",
@@ -79,7 +79,7 @@ var Files = map[string]string{
         ]
       }
     },
-    "/v1/token:sign_out": {
+    "/v1/sign_out": {
       "post": {
         "summary": "登出",
         "operationId": "SignOut",

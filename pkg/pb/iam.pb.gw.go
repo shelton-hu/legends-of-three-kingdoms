@@ -154,9 +154,9 @@ func RegisterTokenServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_TokenService_SignInOrSignUp_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "oauth2", "token"}, "sign_in_or_sign_up"))
+	pattern_TokenService_SignInOrSignUp_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "oauth2", "token"}, ""))
 
-	pattern_TokenService_SignOut_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "token"}, "sign_out"))
+	pattern_TokenService_SignOut_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "sign_out"}, ""))
 )
 
 var (

@@ -9,6 +9,5 @@ import (
 func main() {
 	cfg := config.LoadConfig()
 	pi.SetGlobal(cfg)
-
 	iam.Serve()
 }
