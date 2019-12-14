@@ -19,7 +19,8 @@ compose-up-manager: compose-up-etcd
 	docker-compose up -d ltk-mysql-prisma-deploy
 	docker wait ltk-mysql-prisma-deploy
 	docker-compose up -d ltk-iam-manager
-	docker-compose up -d ltk-process-manager
+	docker-compose up -d ltk-room-manager
+	docker-compose up -d ltk-game-manager
 	docker-compose up -d ltk-api-gateway
 	@echo "compose-up-manager ok"
 

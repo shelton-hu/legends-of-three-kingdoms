@@ -186,6 +186,95 @@
         
           
           <li>
+            <a href="#game.proto">game.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#ltk.StartGameRequets"><span class="badge">M</span>StartGameRequets</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.StartGameResponse"><span class="badge">M</span>StartGameResponse</a>
+                </li>
+              
+              
+              
+              
+                <li>
+                  <a href="#ltk.GameService"><span class="badge">S</span>GameService</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#iam.proto">iam.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#ltk.SignInOrSingUpRequest"><span class="badge">M</span>SignInOrSingUpRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.SignInOrSingUpResponse"><span class="badge">M</span>SignInOrSingUpResponse</a>
+                </li>
+              
+              
+              
+              
+                <li>
+                  <a href="#ltk.TokenService"><span class="badge">S</span>TokenService</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#room.proto">room.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#ltk.ComeIntoRoomRequest"><span class="badge">M</span>ComeIntoRoomRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.ComeIntoRoomResponse"><span class="badge">M</span>ComeIntoRoomResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.CreateRoomRequest"><span class="badge">M</span>CreateRoomRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.CreateRoomResponse"><span class="badge">M</span>CreateRoomResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.DescribeRoomsRequest"><span class="badge">M</span>DescribeRoomsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.DescribeRoomsResponse"><span class="badge">M</span>DescribeRoomsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.Room"><span class="badge">M</span>Room</a>
+                </li>
+              
+              
+              
+              
+                <li>
+                  <a href="#ltk.RoomService"><span class="badge">S</span>RoomService</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#types.proto">types.proto</a>
             <ul>
               
@@ -217,6 +306,457 @@
       
 
       
+    
+      
+      <div class="file-heading">
+        <h2 id="game.proto">game.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="ltk.StartGameRequets">StartGameRequets</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="ltk.StartGameResponse">StartGameResponse</h3>
+        <p></p>
+
+        
+
+        
+      
+
+      
+
+      
+
+      
+        <h3 id="ltk.GameService">GameService</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>StartGame</td>
+                <td><a href="#ltk.StartGameRequets">StartGameRequets</a> stream</td>
+                <td><a href="#ltk.StartGameResponse">StartGameResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Methods with HTTP bindings</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Method Name</td>
+                <td>Method</td>
+                <td>Pattern</td>
+                <td>Body</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              
+              
+              <tr>
+                <td>StartGame</td>
+                <td>POST</td>
+                <td>/v1/game</td>
+                <td>*</td>
+              </tr>
+              
+            
+            </tbody>
+          </table>
+          
+        
+    
+      
+      <div class="file-heading">
+        <h2 id="iam.proto">iam.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="ltk.SignInOrSingUpRequest">SignInOrSingUpRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>nick_name</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>password</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ltk.SignInOrSingUpResponse">SignInOrSingUpResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>access_token</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+        <h3 id="ltk.TokenService">TokenService</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>SignInOrSingUp</td>
+                <td><a href="#ltk.SignInOrSingUpRequest">SignInOrSingUpRequest</a></td>
+                <td><a href="#ltk.SignInOrSingUpResponse">SignInOrSingUpResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Methods with HTTP bindings</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Method Name</td>
+                <td>Method</td>
+                <td>Pattern</td>
+                <td>Body</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              
+              
+              <tr>
+                <td>SignInOrSingUp</td>
+                <td>POST</td>
+                <td>/v1/token</td>
+                <td>*</td>
+              </tr>
+              
+            
+            </tbody>
+          </table>
+          
+        
+    
+      
+      <div class="file-heading">
+        <h2 id="room.proto">room.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="ltk.ComeIntoRoomRequest">ComeIntoRoomRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>room_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ltk.ComeIntoRoomResponse">ComeIntoRoomResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>room_id</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ltk.CreateRoomRequest">CreateRoomRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>room_nick_name</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ltk.CreateRoomResponse">CreateRoomResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>room_id</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ltk.DescribeRoomsRequest">DescribeRoomsRequest</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="ltk.DescribeRoomsResponse">DescribeRoomsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>rooms</td>
+                  <td><a href="#ltk.Room">Room</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="ltk.Room">Room</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>room_id</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>room_nick_name</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_nick_names</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+        <h3 id="ltk.RoomService">RoomService</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>CreateRoom</td>
+                <td><a href="#ltk.CreateRoomRequest">CreateRoomRequest</a></td>
+                <td><a href="#ltk.CreateRoomResponse">CreateRoomResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>ComeIntoRoom</td>
+                <td><a href="#ltk.ComeIntoRoomRequest">ComeIntoRoomRequest</a></td>
+                <td><a href="#ltk.ComeIntoRoomResponse">ComeIntoRoomResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DescribeRooms</td>
+                <td><a href="#ltk.DescribeRoomsRequest">DescribeRoomsRequest</a></td>
+                <td><a href="#ltk.DescribeRoomsResponse">DescribeRoomsResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Methods with HTTP bindings</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Method Name</td>
+                <td>Method</td>
+                <td>Pattern</td>
+                <td>Body</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              
+              
+              <tr>
+                <td>CreateRoom</td>
+                <td>POST</td>
+                <td>/v1/rooms</td>
+                <td>*</td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>ComeIntoRoom</td>
+                <td>POST</td>
+                <td>/v1/rooms/{room_id=*}/come_into</td>
+                <td>*</td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>DescribeRooms</td>
+                <td>GET</td>
+                <td>/v1/rooms</td>
+                <td></td>
+              </tr>
+              
+            
+            </tbody>
+          </table>
+          
+        
     
       
       <div class="file-heading">

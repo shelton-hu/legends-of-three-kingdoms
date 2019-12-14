@@ -1,4 +1,25 @@
-type Test {
+# iam
+enum Sex {
+    MALE
+    FEMALE
+    UNKNOWN
+}
+
+type User {
     id: ID! @id
-    test: String
+    nickName: String! @unique
+    password: String
+    sex: Sex
+    loginAt: DateTime
+    loginVersion: Int
+    room: Room
+}
+
+# room
+type Room {
+    id: ID! @id
+    createdAt: DateTime! @createdAt
+    roomNo: String! @unique
+    roomNickName: String! @unique
+    players: [User]!
 }

@@ -1,4 +1,4 @@
-DATE := `date +%Y%m%d%H`
+DATE := `date +%Y%m%d`
 
 release-%: ## release version
 	@if [ "`echo "$*" | grep -E "^v[0-9]+\.[0-9]+\.[0-9]+"`" != "" ];then \

@@ -32,7 +32,8 @@ services:
     depends_on:
       - ltk-etcd
       - ltk-iam-manager
-      - ltk-process-manager
+      - ltk-room-manager
+      - ltk-game-manager
     restart: always
 
   ltk-iam-manager:
@@ -50,16 +51,31 @@ services:
       - ltk-mysql-prisma
     restart: always 
 
-  ltk-process-manager:
+  ltk-room-manager:
     image: ${IMAGE}
-    command: "process-manager"
-    container_name: ltk-process-manager
+    command: "room-manager"
+    container_name: ltk-room-manager
     environment:
       - LTK_MYSQL_PRISMA_ENDPOINT=${LTK_MYSQL_PRISMA_ENDPOINT}
       - LTK_LOG_LEVEL=${LTK_LOG_LEVEL}
       - LTK_GRPC_SHOW_ERROR_CAUSE=${LTK_GRPC_SHOW_ERROR_CAUSE}
     ports:
       - "9102:9002"
+    depends_on:
+      - ltk-etcd
+      - ltk-mysql-prisma
+    restart: always 
+
+  ltk-game-manager:
+    image: ${IMAGE}
+    command: "game-manager"
+    container_name: ltk-game-manager
+    environment:
+      - LTK_MYSQL_PRISMA_ENDPOINT=${LTK_MYSQL_PRISMA_ENDPOINT}
+      - LTK_LOG_LEVEL=${LTK_LOG_LEVEL}
+      - LTK_GRPC_SHOW_ERROR_CAUSE=${LTK_GRPC_SHOW_ERROR_CAUSE}
+    ports:
+      - "9103:9003"
     depends_on:
       - ltk-etcd
       - ltk-mysql-prisma
