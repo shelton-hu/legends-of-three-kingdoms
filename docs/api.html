@@ -213,11 +213,19 @@
             <ul>
               
                 <li>
-                  <a href="#ltk.SignInOrSingUpRequest"><span class="badge">M</span>SignInOrSingUpRequest</a>
+                  <a href="#ltk.SignInOrSignUpRequest"><span class="badge">M</span>SignInOrSignUpRequest</a>
                 </li>
               
                 <li>
-                  <a href="#ltk.SignInOrSingUpResponse"><span class="badge">M</span>SignInOrSingUpResponse</a>
+                  <a href="#ltk.SignInOrSignUpResponse"><span class="badge">M</span>SignInOrSignUpResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.SignOutRequest"><span class="badge">M</span>SignOutRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#ltk.SignOutResponse"><span class="badge">M</span>SignOutResponse</a>
                 </li>
               
               
@@ -389,7 +397,7 @@
       <p></p>
 
       
-        <h3 id="ltk.SignInOrSingUpRequest">SignInOrSingUpRequest</h3>
+        <h3 id="ltk.SignInOrSignUpRequest">SignInOrSignUpRequest</h3>
         <p></p>
 
         
@@ -420,7 +428,7 @@
 
         
       
-        <h3 id="ltk.SignInOrSingUpResponse">SignInOrSingUpResponse</h3>
+        <h3 id="ltk.SignInOrSignUpResponse">SignInOrSignUpResponse</h3>
         <p></p>
 
         
@@ -444,6 +452,20 @@
 
         
       
+        <h3 id="ltk.SignOutRequest">SignOutRequest</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="ltk.SignOutResponse">SignOutResponse</h3>
+        <p></p>
+
+        
+
+        
+      
 
       
 
@@ -459,9 +481,16 @@
           <tbody>
             
               <tr>
-                <td>SignInOrSingUp</td>
-                <td><a href="#ltk.SignInOrSingUpRequest">SignInOrSingUpRequest</a></td>
-                <td><a href="#ltk.SignInOrSingUpResponse">SignInOrSingUpResponse</a></td>
+                <td>SignInOrSignUp</td>
+                <td><a href="#ltk.SignInOrSignUpRequest">SignInOrSignUpRequest</a></td>
+                <td><a href="#ltk.SignInOrSignUpResponse">SignInOrSignUpResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>SignOut</td>
+                <td><a href="#ltk.SignOutRequest">SignOutRequest</a></td>
+                <td><a href="#ltk.SignOutResponse">SignOutResponse</a></td>
                 <td><p></p></td>
               </tr>
             
@@ -486,9 +515,19 @@
               
               
               <tr>
-                <td>SignInOrSingUp</td>
+                <td>SignInOrSignUp</td>
                 <td>POST</td>
-                <td>/v1/token</td>
+                <td>/v1/oauth2/token:sign_in_or_sign_up</td>
+                <td>*</td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>SignOut</td>
+                <td>POST</td>
+                <td>/v1/token:sign_out</td>
                 <td>*</td>
               </tr>
               

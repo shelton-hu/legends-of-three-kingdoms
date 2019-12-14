@@ -150,7 +150,7 @@ Last *int32 `json:"last,omitempty"`
           params,
           [2]string{"UserWhereUniqueInput!", "User"},
           "user",
-          []string{"id","nickName","password","sex","loginAt","loginVersion"})
+          []string{"id","nickName","password","loginAt","isInGame","token"})
 
         return &UserExec{ret}
       }
@@ -183,7 +183,7 @@ Last *int32 `json:"last,omitempty"`
           wparams,
           [3]string{"UserWhereInput", "UserOrderByInput", "User"},
           "users",
-          []string{"id","nickName","password","sex","loginAt","loginVersion"})
+          []string{"id","nickName","password","loginAt","isInGame","token"})
 
         return &UserExecArray{ret}
       }
@@ -305,7 +305,7 @@ Update RoomUpdateInput `json:"update"`
           params,
           [2]string{"UserCreateInput!", "User"},
           "createUser",
-          []string{"id","nickName","password","sex","loginAt","loginVersion"})
+          []string{"id","nickName","password","loginAt","isInGame","token"})
 
         return &UserExec{ret}
       }
@@ -322,7 +322,7 @@ Where UserWhereUniqueInput `json:"where"`
                  },
                  [3]string{"UserUpdateInput!", "UserWhereUniqueInput!", "User"},
                  "updateUser",
-                 []string{"id","nickName","password","sex","loginAt","loginVersion"})
+                 []string{"id","nickName","password","loginAt","isInGame","token"})
 
         return &UserExec{ret}
       }
@@ -357,7 +357,7 @@ Update UserUpdateInput `json:"update"`
           uparams,
           [4]string{"UserWhereUniqueInput!", "UserCreateInput!", "UserUpdateInput!","User"},
           "upsertUser",
-          []string{"id","nickName","password","sex","loginAt","loginVersion"})
+          []string{"id","nickName","password","loginAt","isInGame","token"})
 
         return &UserExec{ret}
       }
@@ -367,7 +367,7 @@ Update UserUpdateInput `json:"update"`
           params,
           [2]string{"UserWhereUniqueInput!", "User"},
           "deleteUser",
-          []string{"id","nickName","password","sex","loginAt","loginVersion"})
+          []string{"id","nickName","password","loginAt","isInGame","token"})
 
         return &UserExec{ret}
       }
@@ -378,13 +378,6 @@ Update UserUpdateInput `json:"update"`
       }
 
 
-        type Sex string
-        const (
-          SexMale Sex = "MALE"
-SexFemale Sex = "FEMALE"
-SexUnknown Sex = "UNKNOWN"
-          )
-
         type UserOrderByInput string
         const (
           UserOrderByInputIDAsc UserOrderByInput = "id_ASC"
@@ -393,12 +386,12 @@ UserOrderByInputNickNameAsc UserOrderByInput = "nickName_ASC"
 UserOrderByInputNickNameDesc UserOrderByInput = "nickName_DESC"
 UserOrderByInputPasswordAsc UserOrderByInput = "password_ASC"
 UserOrderByInputPasswordDesc UserOrderByInput = "password_DESC"
-UserOrderByInputSexAsc UserOrderByInput = "sex_ASC"
-UserOrderByInputSexDesc UserOrderByInput = "sex_DESC"
 UserOrderByInputLoginAtAsc UserOrderByInput = "loginAt_ASC"
 UserOrderByInputLoginAtDesc UserOrderByInput = "loginAt_DESC"
-UserOrderByInputLoginVersionAsc UserOrderByInput = "loginVersion_ASC"
-UserOrderByInputLoginVersionDesc UserOrderByInput = "loginVersion_DESC"
+UserOrderByInputIsInGameAsc UserOrderByInput = "isInGame_ASC"
+UserOrderByInputIsInGameDesc UserOrderByInput = "isInGame_DESC"
+UserOrderByInputTokenAsc UserOrderByInput = "token_ASC"
+UserOrderByInputTokenDesc UserOrderByInput = "token_DESC"
           )
 
         type RoomOrderByInput string
@@ -420,10 +413,16 @@ MutationTypeUpdated MutationType = "UPDATED"
 MutationTypeDeleted MutationType = "DELETED"
           )
 
-      type RoomUpdateInput struct {
-        RoomNo *string `json:"roomNo,omitempty"`
-RoomNickName *string `json:"roomNickName,omitempty"`
-Players *UserUpdateManyWithoutRoomInput `json:"players,omitempty"`
+      type UserUpdateManyWithoutRoomInput struct {
+        Create []UserCreateWithoutRoomInput `json:"create,omitempty"`
+Delete []UserWhereUniqueInput `json:"delete,omitempty"`
+Connect []UserWhereUniqueInput `json:"connect,omitempty"`
+Set []UserWhereUniqueInput `json:"set,omitempty"`
+Disconnect []UserWhereUniqueInput `json:"disconnect,omitempty"`
+Update []UserUpdateWithWhereUniqueWithoutRoomInput `json:"update,omitempty"`
+Upsert []UserUpsertWithWhereUniqueWithoutRoomInput `json:"upsert,omitempty"`
+DeleteMany []UserScalarWhereInput `json:"deleteMany,omitempty"`
+UpdateMany []UserUpdateManyWithWhereNestedInput `json:"updateMany,omitempty"`
           }
 
       type RoomWhereUniqueInput struct {
@@ -435,9 +434,9 @@ RoomNickName *string `json:"roomNickName,omitempty"`
       type UserUpdateWithoutRoomDataInput struct {
         NickName *string `json:"nickName,omitempty"`
 Password *string `json:"password,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+Token *string `json:"token,omitempty"`
           }
 
       type UserWhereInput struct {
@@ -483,10 +482,6 @@ PasswordStartsWith *string `json:"password_starts_with,omitempty"`
 PasswordNotStartsWith *string `json:"password_not_starts_with,omitempty"`
 PasswordEndsWith *string `json:"password_ends_with,omitempty"`
 PasswordNotEndsWith *string `json:"password_not_ends_with,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
-SexNot *Sex `json:"sex_not,omitempty"`
-SexIn []Sex `json:"sex_in,omitempty"`
-SexNotIn []Sex `json:"sex_not_in,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
 LoginAtNot *string `json:"loginAt_not,omitempty"`
 LoginAtIn []string `json:"loginAt_in,omitempty"`
@@ -495,14 +490,22 @@ LoginAtLt *string `json:"loginAt_lt,omitempty"`
 LoginAtLte *string `json:"loginAt_lte,omitempty"`
 LoginAtGt *string `json:"loginAt_gt,omitempty"`
 LoginAtGte *string `json:"loginAt_gte,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
-LoginVersionNot *int32 `json:"loginVersion_not,omitempty"`
-LoginVersionIn []int32 `json:"loginVersion_in,omitempty"`
-LoginVersionNotIn []int32 `json:"loginVersion_not_in,omitempty"`
-LoginVersionLt *int32 `json:"loginVersion_lt,omitempty"`
-LoginVersionLte *int32 `json:"loginVersion_lte,omitempty"`
-LoginVersionGt *int32 `json:"loginVersion_gt,omitempty"`
-LoginVersionGte *int32 `json:"loginVersion_gte,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+IsInGameNot *bool `json:"isInGame_not,omitempty"`
+Token *string `json:"token,omitempty"`
+TokenNot *string `json:"token_not,omitempty"`
+TokenIn []string `json:"token_in,omitempty"`
+TokenNotIn []string `json:"token_not_in,omitempty"`
+TokenLt *string `json:"token_lt,omitempty"`
+TokenLte *string `json:"token_lte,omitempty"`
+TokenGt *string `json:"token_gt,omitempty"`
+TokenGte *string `json:"token_gte,omitempty"`
+TokenContains *string `json:"token_contains,omitempty"`
+TokenNotContains *string `json:"token_not_contains,omitempty"`
+TokenStartsWith *string `json:"token_starts_with,omitempty"`
+TokenNotStartsWith *string `json:"token_not_starts_with,omitempty"`
+TokenEndsWith *string `json:"token_ends_with,omitempty"`
+TokenNotEndsWith *string `json:"token_not_ends_with,omitempty"`
 Room *RoomWhereInput `json:"room,omitempty"`
 And []UserWhereInput `json:"AND,omitempty"`
 Or []UserWhereInput `json:"OR,omitempty"`
@@ -622,10 +625,6 @@ PasswordStartsWith *string `json:"password_starts_with,omitempty"`
 PasswordNotStartsWith *string `json:"password_not_starts_with,omitempty"`
 PasswordEndsWith *string `json:"password_ends_with,omitempty"`
 PasswordNotEndsWith *string `json:"password_not_ends_with,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
-SexNot *Sex `json:"sex_not,omitempty"`
-SexIn []Sex `json:"sex_in,omitempty"`
-SexNotIn []Sex `json:"sex_not_in,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
 LoginAtNot *string `json:"loginAt_not,omitempty"`
 LoginAtIn []string `json:"loginAt_in,omitempty"`
@@ -634,14 +633,22 @@ LoginAtLt *string `json:"loginAt_lt,omitempty"`
 LoginAtLte *string `json:"loginAt_lte,omitempty"`
 LoginAtGt *string `json:"loginAt_gt,omitempty"`
 LoginAtGte *string `json:"loginAt_gte,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
-LoginVersionNot *int32 `json:"loginVersion_not,omitempty"`
-LoginVersionIn []int32 `json:"loginVersion_in,omitempty"`
-LoginVersionNotIn []int32 `json:"loginVersion_not_in,omitempty"`
-LoginVersionLt *int32 `json:"loginVersion_lt,omitempty"`
-LoginVersionLte *int32 `json:"loginVersion_lte,omitempty"`
-LoginVersionGt *int32 `json:"loginVersion_gt,omitempty"`
-LoginVersionGte *int32 `json:"loginVersion_gte,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+IsInGameNot *bool `json:"isInGame_not,omitempty"`
+Token *string `json:"token,omitempty"`
+TokenNot *string `json:"token_not,omitempty"`
+TokenIn []string `json:"token_in,omitempty"`
+TokenNotIn []string `json:"token_not_in,omitempty"`
+TokenLt *string `json:"token_lt,omitempty"`
+TokenLte *string `json:"token_lte,omitempty"`
+TokenGt *string `json:"token_gt,omitempty"`
+TokenGte *string `json:"token_gte,omitempty"`
+TokenContains *string `json:"token_contains,omitempty"`
+TokenNotContains *string `json:"token_not_contains,omitempty"`
+TokenStartsWith *string `json:"token_starts_with,omitempty"`
+TokenNotStartsWith *string `json:"token_not_starts_with,omitempty"`
+TokenEndsWith *string `json:"token_ends_with,omitempty"`
+TokenNotEndsWith *string `json:"token_not_ends_with,omitempty"`
 And []UserScalarWhereInput `json:"AND,omitempty"`
 Or []UserScalarWhereInput `json:"OR,omitempty"`
 Not []UserScalarWhereInput `json:"NOT,omitempty"`
@@ -679,9 +686,9 @@ Create RoomCreateWithoutPlayersInput `json:"create"`
         ID *string `json:"id,omitempty"`
 NickName string `json:"nickName"`
 Password *string `json:"password,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+Token *string `json:"token,omitempty"`
           }
 
       type UserWhereUniqueInput struct {
@@ -689,30 +696,24 @@ LoginVersion *int32 `json:"loginVersion,omitempty"`
 NickName *string `json:"nickName,omitempty"`
           }
 
-      type RoomCreateOneWithoutPlayersInput struct {
-        Create *RoomCreateWithoutPlayersInput `json:"create,omitempty"`
-Connect *RoomWhereUniqueInput `json:"connect,omitempty"`
+      type RoomUpdateInput struct {
+        RoomNo *string `json:"roomNo,omitempty"`
+RoomNickName *string `json:"roomNickName,omitempty"`
+Players *UserUpdateManyWithoutRoomInput `json:"players,omitempty"`
           }
 
       type UserUpdateInput struct {
         NickName *string `json:"nickName,omitempty"`
 Password *string `json:"password,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+Token *string `json:"token,omitempty"`
 Room *RoomUpdateOneWithoutPlayersInput `json:"room,omitempty"`
           }
 
-      type UserUpdateManyWithoutRoomInput struct {
-        Create []UserCreateWithoutRoomInput `json:"create,omitempty"`
-Delete []UserWhereUniqueInput `json:"delete,omitempty"`
-Connect []UserWhereUniqueInput `json:"connect,omitempty"`
-Set []UserWhereUniqueInput `json:"set,omitempty"`
-Disconnect []UserWhereUniqueInput `json:"disconnect,omitempty"`
-Update []UserUpdateWithWhereUniqueWithoutRoomInput `json:"update,omitempty"`
-Upsert []UserUpsertWithWhereUniqueWithoutRoomInput `json:"upsert,omitempty"`
-DeleteMany []UserScalarWhereInput `json:"deleteMany,omitempty"`
-UpdateMany []UserUpdateManyWithWhereNestedInput `json:"updateMany,omitempty"`
+      type RoomCreateOneWithoutPlayersInput struct {
+        Create *RoomCreateWithoutPlayersInput `json:"create,omitempty"`
+Connect *RoomWhereUniqueInput `json:"connect,omitempty"`
           }
 
       type UserSubscriptionWhereInput struct {
@@ -729,9 +730,9 @@ Not []UserSubscriptionWhereInput `json:"NOT,omitempty"`
       type UserUpdateManyDataInput struct {
         NickName *string `json:"nickName,omitempty"`
 Password *string `json:"password,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+Token *string `json:"token,omitempty"`
           }
 
       type RoomUpdateManyMutationInput struct {
@@ -743,9 +744,9 @@ RoomNickName *string `json:"roomNickName,omitempty"`
         ID *string `json:"id,omitempty"`
 NickName string `json:"nickName"`
 Password *string `json:"password,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+Token *string `json:"token,omitempty"`
 Room *RoomCreateOneWithoutPlayersInput `json:"room,omitempty"`
           }
 
@@ -757,9 +758,9 @@ Data UserUpdateWithoutRoomDataInput `json:"data"`
       type UserUpdateManyMutationInput struct {
         NickName *string `json:"nickName,omitempty"`
 Password *string `json:"password,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+Token *string `json:"token,omitempty"`
           }
 
       type RoomCreateWithoutPlayersInput struct {
@@ -819,9 +820,9 @@ RoomNickName *string `json:"roomNickName,omitempty"`
           ID string `json:"id"`
 NickName string `json:"nickName"`
 Password *string `json:"password,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+Token *string `json:"token,omitempty"`
         }
 
 
@@ -871,9 +872,9 @@ LoginVersion *int32 `json:"loginVersion,omitempty"`
           ID string `json:"id"`
 NickName string `json:"nickName"`
 Password *string `json:"password,omitempty"`
-Sex *Sex `json:"sex,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-LoginVersion *int32 `json:"loginVersion,omitempty"`
+IsInGame *bool `json:"isInGame,omitempty"`
+Token *string `json:"token,omitempty"`
         }
 
         type RoomEdgeExec struct {
@@ -923,76 +924,6 @@ LoginVersion *int32 `json:"loginVersion,omitempty"`
 Cursor string `json:"cursor"`
         }
 
-        type RoomExec struct {
-          exec *prisma.Exec
-        }
-
-        
-                type PlayersParamsExec struct {
-                  Where *UserWhereInput
-OrderBy *UserOrderByInput
-Skip *int32
-After *string
-Before *string
-First *int32
-Last *int32
-                }
-                func (instance *RoomExec) Players(params *PlayersParamsExec) *UserExecArray {
-                  var wparams *prisma.WhereParams
-                  if params != nil {
-                    wparams = &prisma.WhereParams{
-                      Where: params.Where,
-                      OrderBy: (*string)(params.OrderBy),
-                      Skip: params.Skip,
-                      After: params.After,
-                      Before: params.Before,
-                      First: params.First,
-                      Last: params.Last,
-                    }
-                  }
-
-                  ret := instance.exec.Client.GetMany(
-                    instance.exec,
-                    wparams,
-                    [3]string{"UserWhereInput", "UserOrderByInput", "User"},
-                    "players",
-                    []string{"id","nickName","password","sex","loginAt","loginVersion"})
-
-                  return &UserExecArray{ret}
-                }
-
-          func (instance RoomExec) Exec(ctx context.Context) (*Room, error) {
-            var v Room
-            ok, err := instance.exec.Exec(ctx, &v)
-            if err != nil {
-              return nil, err
-            }
-            if !ok {
-              return nil, ErrNoResult
-            }
-            return &v, nil
-          }
-
-          func (instance RoomExec) Exists(ctx context.Context) (bool, error) {
-            return instance.exec.Exists(ctx)
-          }
-
-          type RoomExecArray struct {
-            exec *prisma.Exec
-          }
-
-          func (instance RoomExecArray) Exec(ctx context.Context) ([]Room, error) {
-            var v []Room
-            err := instance.exec.ExecArray(ctx, &v)
-            return v, err
-          }
-
-        type Room struct {
-          ID string `json:"id"`
-CreatedAt string `json:"createdAt"`
-RoomNo string `json:"roomNo"`
-RoomNickName string `json:"roomNickName"`
-        }
 
         type RoomSubscriptionPayloadExec struct {
           exec *prisma.Exec
@@ -1051,84 +982,6 @@ RoomNickName string `json:"roomNickName"`
           Mutation MutationType `json:"mutation"`
 Node *Room `json:"node,omitempty"`
 UpdatedFields []string `json:"updatedFields,omitempty"`
-        }
-
-        type PageInfoExec struct {
-          exec *prisma.Exec
-        }
-
-        
-
-          func (instance PageInfoExec) Exec(ctx context.Context) (*PageInfo, error) {
-            var v PageInfo
-            ok, err := instance.exec.Exec(ctx, &v)
-            if err != nil {
-              return nil, err
-            }
-            if !ok {
-              return nil, ErrNoResult
-            }
-            return &v, nil
-          }
-
-          func (instance PageInfoExec) Exists(ctx context.Context) (bool, error) {
-            return instance.exec.Exists(ctx)
-          }
-
-          type PageInfoExecArray struct {
-            exec *prisma.Exec
-          }
-
-          func (instance PageInfoExecArray) Exec(ctx context.Context) ([]PageInfo, error) {
-            var v []PageInfo
-            err := instance.exec.ExecArray(ctx, &v)
-            return v, err
-          }
-
-        type PageInfo struct {
-          HasNextPage bool `json:"hasNextPage"`
-HasPreviousPage bool `json:"hasPreviousPage"`
-StartCursor *string `json:"startCursor,omitempty"`
-EndCursor *string `json:"endCursor,omitempty"`
-        }
-
-        type RoomPreviousValuesExec struct {
-          exec *prisma.Exec
-        }
-
-        
-
-          func (instance RoomPreviousValuesExec) Exec(ctx context.Context) (*RoomPreviousValues, error) {
-            var v RoomPreviousValues
-            ok, err := instance.exec.Exec(ctx, &v)
-            if err != nil {
-              return nil, err
-            }
-            if !ok {
-              return nil, ErrNoResult
-            }
-            return &v, nil
-          }
-
-          func (instance RoomPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
-            return instance.exec.Exists(ctx)
-          }
-
-          type RoomPreviousValuesExecArray struct {
-            exec *prisma.Exec
-          }
-
-          func (instance RoomPreviousValuesExecArray) Exec(ctx context.Context) ([]RoomPreviousValues, error) {
-            var v []RoomPreviousValues
-            err := instance.exec.ExecArray(ctx, &v)
-            return v, err
-          }
-
-        type RoomPreviousValues struct {
-          ID string `json:"id"`
-CreatedAt string `json:"createdAt"`
-RoomNo string `json:"roomNo"`
-RoomNickName string `json:"roomNickName"`
         }
 
         type RoomConnectionExec struct {
@@ -1209,6 +1062,116 @@ RoomNickName string `json:"roomNickName"`
 Edges []RoomEdge `json:"edges"`
         }
 
+        type RoomPreviousValuesExec struct {
+          exec *prisma.Exec
+        }
+
+        
+
+          func (instance RoomPreviousValuesExec) Exec(ctx context.Context) (*RoomPreviousValues, error) {
+            var v RoomPreviousValues
+            ok, err := instance.exec.Exec(ctx, &v)
+            if err != nil {
+              return nil, err
+            }
+            if !ok {
+              return nil, ErrNoResult
+            }
+            return &v, nil
+          }
+
+          func (instance RoomPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
+            return instance.exec.Exists(ctx)
+          }
+
+          type RoomPreviousValuesExecArray struct {
+            exec *prisma.Exec
+          }
+
+          func (instance RoomPreviousValuesExecArray) Exec(ctx context.Context) ([]RoomPreviousValues, error) {
+            var v []RoomPreviousValues
+            err := instance.exec.ExecArray(ctx, &v)
+            return v, err
+          }
+
+        type RoomPreviousValues struct {
+          ID string `json:"id"`
+CreatedAt string `json:"createdAt"`
+RoomNo string `json:"roomNo"`
+RoomNickName string `json:"roomNickName"`
+        }
+
+        type RoomExec struct {
+          exec *prisma.Exec
+        }
+
+        
+                type PlayersParamsExec struct {
+                  Where *UserWhereInput
+OrderBy *UserOrderByInput
+Skip *int32
+After *string
+Before *string
+First *int32
+Last *int32
+                }
+                func (instance *RoomExec) Players(params *PlayersParamsExec) *UserExecArray {
+                  var wparams *prisma.WhereParams
+                  if params != nil {
+                    wparams = &prisma.WhereParams{
+                      Where: params.Where,
+                      OrderBy: (*string)(params.OrderBy),
+                      Skip: params.Skip,
+                      After: params.After,
+                      Before: params.Before,
+                      First: params.First,
+                      Last: params.Last,
+                    }
+                  }
+
+                  ret := instance.exec.Client.GetMany(
+                    instance.exec,
+                    wparams,
+                    [3]string{"UserWhereInput", "UserOrderByInput", "User"},
+                    "players",
+                    []string{"id","nickName","password","loginAt","isInGame","token"})
+
+                  return &UserExecArray{ret}
+                }
+
+          func (instance RoomExec) Exec(ctx context.Context) (*Room, error) {
+            var v Room
+            ok, err := instance.exec.Exec(ctx, &v)
+            if err != nil {
+              return nil, err
+            }
+            if !ok {
+              return nil, ErrNoResult
+            }
+            return &v, nil
+          }
+
+          func (instance RoomExec) Exists(ctx context.Context) (bool, error) {
+            return instance.exec.Exists(ctx)
+          }
+
+          type RoomExecArray struct {
+            exec *prisma.Exec
+          }
+
+          func (instance RoomExecArray) Exec(ctx context.Context) ([]Room, error) {
+            var v []Room
+            err := instance.exec.ExecArray(ctx, &v)
+            return v, err
+          }
+
+        type Room struct {
+          ID string `json:"id"`
+CreatedAt string `json:"createdAt"`
+RoomNo string `json:"roomNo"`
+RoomNickName string `json:"roomNickName"`
+        }
+
         type UserSubscriptionPayloadExec struct {
           exec *prisma.Exec
         }
@@ -1220,7 +1183,7 @@ Edges []RoomEdge `json:"edges"`
                     nil,
                     [2]string{"", "User"},
                     "node",
-                    []string{"id","nickName","password","sex","loginAt","loginVersion"})
+                    []string{"id","nickName","password","loginAt","isInGame","token"})
 
                   return &UserExec{ret}
                 }
@@ -1231,7 +1194,7 @@ Edges []RoomEdge `json:"edges"`
                     nil,
                     [2]string{"", "UserPreviousValues"},
                     "previousValues",
-                    []string{"id","nickName","password","sex","loginAt","loginVersion"})
+                    []string{"id","nickName","password","loginAt","isInGame","token"})
 
                   return &UserPreviousValuesExec{ret}
                 }
@@ -1357,7 +1320,7 @@ Edges []UserEdge `json:"edges"`
                     nil,
                     [2]string{"", "User"},
                     "node",
-                    []string{"id","nickName","password","sex","loginAt","loginVersion"})
+                    []string{"id","nickName","password","loginAt","isInGame","token"})
 
                   return &UserExec{ret}
                 }
@@ -1394,6 +1357,44 @@ Cursor string `json:"cursor"`
         }
 
 
+        type PageInfoExec struct {
+          exec *prisma.Exec
+        }
+
+        
+
+          func (instance PageInfoExec) Exec(ctx context.Context) (*PageInfo, error) {
+            var v PageInfo
+            ok, err := instance.exec.Exec(ctx, &v)
+            if err != nil {
+              return nil, err
+            }
+            if !ok {
+              return nil, ErrNoResult
+            }
+            return &v, nil
+          }
+
+          func (instance PageInfoExec) Exists(ctx context.Context) (bool, error) {
+            return instance.exec.Exists(ctx)
+          }
+
+          type PageInfoExecArray struct {
+            exec *prisma.Exec
+          }
+
+          func (instance PageInfoExecArray) Exec(ctx context.Context) ([]PageInfo, error) {
+            var v []PageInfo
+            err := instance.exec.ExecArray(ctx, &v)
+            return v, err
+          }
+
+        type PageInfo struct {
+          HasNextPage bool `json:"hasNextPage"`
+HasPreviousPage bool `json:"hasPreviousPage"`
+StartCursor *string `json:"startCursor,omitempty"`
+EndCursor *string `json:"endCursor,omitempty"`
+        }
 
 
 

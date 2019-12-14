@@ -33,23 +33,17 @@ func Validate(k, s string) (*Sender, error) {
 	return sender, nil
 }
 
-func Generate(k string, expire time.Duration, userId, userType string) (string, error) {
-	// TODO: use RS512 or ES512 to encrypt token
-	// https://auth0.com/blog/brute-forcing-hs256-is-possible-the-importance-of-using-strong-keys-to-sign-jwts/
-
+func Generate(k string, expire time.Duration, userId string) (string, error) {
 	signer, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.HS512, Key: trimKey(k)}, nil)
 	if err != nil {
 		return "", err
 	}
-	sender := &Sender{
-		UserType: userType,
-	}
+	sender := &Sender{}
 	now := time.Now()
 	c := &jwt.Claims{
 		IssuedAt: jwt.NewNumericDate(now),
 		Expiry:   jwt.NewNumericDate(now.Add(expire)),
-		// TODO: add jti
-		Subject: userId,
+		Subject:  userId,
 	}
 	return jwt.Signed(signer).Claims(sender).Claims(c).CompactSerialize()
 }

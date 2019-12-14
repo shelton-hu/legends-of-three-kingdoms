@@ -2,6 +2,7 @@ package config
 
 import (
 	"context"
+	"time"
 
 	"github.com/koding/multiconfig"
 
@@ -36,7 +37,8 @@ type EtcdConfig struct {
 }
 
 type IAMConfig struct {
-	SecretKey string `default:"test"`
+	SecretKey  string        `default:"ltk"` // TODO:need to set
+	ExpireTime time.Duration `default:"2h"`
 }
 
 type ProcessConfig struct {

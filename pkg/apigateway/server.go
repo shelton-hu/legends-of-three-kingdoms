@@ -29,8 +29,10 @@ import (
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/constants"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/logger"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/manager"
+	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/pb"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/util/senderutil"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/version"
+	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/gerr"
 )
 
 type Server struct {
@@ -50,7 +52,8 @@ func Serve() {
 
 	logger.Info(ctx, "Api service start http://%s:%d", constants.ApiGatewayHost, constants.ApiGatewayPort)
 	logger.Info(ctx, "IAM manager start http://%s:%d", constants.IAMManagerHost, constants.IAMManagerPort)
-	logger.Info(ctx, "IAM manager start http://%s:%d", constants.ProcessManagerHost, constants.ProcessManagerPort)
+	logger.Info(ctx, "Room manager start http://%s:%d", constants.RoomManagerHost, constants.RoomManagerPort)
+	logger.Info(ctx, "Game manager start http://%s:%d", constants.GameManagerHost, constants.GameManagerPort)
 
 	s := Server{}
 
@@ -108,6 +111,39 @@ func log() gin.HandlerFunc {
 
 func serveMuxSetSender(mux *runtime.ServeMux, key string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// 1.skip some special route
+		switch req.URL.Path {
+		case "/v1/oauth2/token":
+			mux.ServeHTTP(w, req)
+			return
+		}
+
+		// 2.get & validate sender
+		var err error
+		ctx := req.Context()
+		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		auth := strings.SplitN(req.Header.Get(Authorization), " ", 2)
+		if auth[0] != "Bearer" {
+			err = gerr.New(ctx, gerr.Unauthenticated, gerr.ErrorAuthFailure)
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		sender, err := senderutil.Validate(key, auth[1])
+		if err != nil {
+			if err == senderutil.ErrExpired {
+				err = gerr.New(ctx, gerr.Unauthenticated, gerr.ErrorAccessTokenExpired)
+			} else {
+				err = gerr.New(ctx, gerr.Unauthenticated, gerr.ErrorAuthFailure)
+			}
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		// 3.set & delete header's key
+		req.Header.Set(senderutil.SenderKey, sender.ToJson())
+		req.Header.Del(Authorization)
+		
+		// 4.route
 		mux.ServeHTTP(w, req)
 	})
 }
@@ -162,7 +198,12 @@ func (s *Server) mainHandler() http.Handler {
 	var opts = manager.ClientOptions
 	var err error
 
-	for _, r := range []register{} {
+	for _, r := range []register{
+		{
+			pb.RegisterTokenServiceHandlerFromEndpoint,
+			fmt.Sprintf("%s:%d", constants.IAMManagerHost, constants.IAMManagerPort),
+		},
+	} {
 		err = r.f(ctx, gwmux, r.endpoint, opts)
 		if err != nil {
 			err = errors.WithStack(err)

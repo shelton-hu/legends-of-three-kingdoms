@@ -52,15 +52,15 @@ var Files = map[string]string{
         ]
       }
     },
-    "/v1/token": {
+    "/v1/oauth2/token:sign_in_or_sign_up": {
       "post": {
-        "summary": "注册或登录",
-        "operationId": "SignInOrSingUp",
+        "summary": "快速登录",
+        "operationId": "SignInOrSignUp",
         "responses": {
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ltkSignInOrSingUpResponse"
+              "$ref": "#/definitions/ltkSignInOrSignUpResponse"
             }
           }
         },
@@ -70,7 +70,34 @@ var Files = map[string]string{
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ltkSignInOrSingUpRequest"
+              "$ref": "#/definitions/ltkSignInOrSignUpRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TokenService"
+        ]
+      }
+    },
+    "/v1/token:sign_out": {
+      "post": {
+        "summary": "登出",
+        "operationId": "SignOut",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ltkSignOutResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ltkSignOutRequest"
             }
           }
         ],
@@ -162,7 +189,7 @@ var Files = map[string]string{
     "ltkStartGameResponse": {
       "type": "object"
     },
-    "ltkSignInOrSingUpRequest": {
+    "ltkSignInOrSignUpRequest": {
       "type": "object",
       "properties": {
         "nick_name": {
@@ -173,13 +200,19 @@ var Files = map[string]string{
         }
       }
     },
-    "ltkSignInOrSingUpResponse": {
+    "ltkSignInOrSignUpResponse": {
       "type": "object",
       "properties": {
         "access_token": {
           "type": "string"
         }
       }
+    },
+    "ltkSignOutRequest": {
+      "type": "object"
+    },
+    "ltkSignOutResponse": {
+      "type": "object"
     },
     "ltkComeIntoRoomRequest": {
       "type": "object",

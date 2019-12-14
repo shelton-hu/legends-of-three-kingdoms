@@ -38,7 +38,7 @@ require (
 	github.com/prisma/prisma-client-lib-go v0.0.0-20181017161110-68a1f9908416
 	github.com/prometheus/client_golang v1.2.1 // indirect
 	github.com/prometheus/client_model v0.0.0-20191202183732-d1d2010b5bee // indirect
-	github.com/shelton-hu/util v0.0.0-20191208062243-142e840aaa70
+	github.com/shelton-hu/util v0.0.0-20191214115711-c7d262f449ac
 	github.com/soheilhy/cmux v0.1.4 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5 // indirect
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
@@ -51,5 +51,6 @@ require (
 	google.golang.org/genproto v0.0.0-20191206224255-0243a4be9c8f
 	google.golang.org/grpc v1.25.1
 	gopkg.in/square/go-jose.v2 v2.4.0
+	openpitrix.io/iam v0.1.0
 	sigs.k8s.io/yaml v1.1.0 // indirect
 )
