@@ -8,8 +8,6 @@ import (
 
 func main() {
 	cfg := config.LoadConfig()
-	cfg.Prisma.Disable = true
-
 	pi.SetGlobal(cfg)
 	apigateway.Serve()
 }

@@ -37,29 +37,23 @@ func (s *Server) SignInOrSignUp(ctx context.Context, req *pb.SignInOrSignUpReque
 		if err.Error() == prisma.ErrNoResult.Error() {
 			isNewUser = true
 			logger.Debug(ctx, "create a new user, %+v", isNewUser)
+		} else {
+			logger.Error(ctx, err.Error())
+			return nil, gerr.NewWithDetail(ctx, gerr.Internal, err, gerr.ErrorSignInOrSingUpFailed, nickName)
 		}
-		return nil, gerr.NewWithDetail(ctx, gerr.Internal, err, gerr.ErrorSignInOrSingUpFailed, nickName)
-	}
-	if pointerutil.GetBool(user.IsInGame) {
-		logger.Error(ctx, ErrAlreadyInGame.Error())
-		return nil, gerr.NewWithDetail(ctx, gerr.Internal, ErrAlreadyInGame, gerr.ErrorSignInOrSingUpFailed, nickName)
+	} else {
+		if pointerutil.GetBool(user.IsInGame) {
+			logger.Error(ctx, ErrAlreadyInGame.Error())
+			return nil, gerr.NewWithDetail(ctx, gerr.Internal, ErrAlreadyInGame, gerr.ErrorSignInOrSingUpFailed, nickName)
+		}
 	}
 
 	// 3.登录验证或注册
-	accessToken, err := senderutil.Generate(
-		pi.Global().Cfg(ctx).IAM.SecretKey, pi.Global().Cfg(ctx).IAM.ExpireTime, user.ID,
-	)
-	if err != nil {
-		logger.Error(ctx, err.Error())
-		return nil, gerr.NewWithDetail(ctx, gerr.Internal, err, gerr.ErrorSignInOrSingUpFailed, nickName)
-	}
 	if isNewUser {
 		// 3.1注册
-		_, err = pi.Global().MysqlPrisma(ctx).CreateUser(prisma.UserCreateInput{
+		user, err = pi.Global().MysqlPrisma(ctx).CreateUser(prisma.UserCreateInput{
 			NickName: nickName,
 			Password: pointerutil.GetStringPointer(hashutil.GetStringMd5(password)),
-			LoginAt:  pointerutil.GetStringPointer(timeutil.Time2String(time.Now(), time.RFC3339)),
-			Token:    pointerutil.GetStringPointer(hashutil.GetStringMd5(accessToken)),
 		}).Exec(ctx)
 		if err != nil {
 			logger.Error(ctx, err.Error())
@@ -71,19 +65,28 @@ func (s *Server) SignInOrSignUp(ctx context.Context, req *pb.SignInOrSignUpReque
 			logger.Error(ctx, ErrorPasseord.Error())
 			return nil, gerr.NewWithDetail(ctx, gerr.Internal, ErrorPasseord, gerr.ErrorSignInOrSingUpFailed, nickName)
 		}
-		_, err = pi.Global().MysqlPrisma(ctx).UpdateUser(prisma.UserUpdateParams{
-			Data: prisma.UserUpdateInput{
-				LoginAt: pointerutil.GetStringPointer(timeutil.Time2String(time.Now(), time.RFC3339)),
-				Token:   pointerutil.GetStringPointer(hashutil.GetStringMd5(accessToken)),
-			},
-			Where: prisma.UserWhereUniqueInput{
-				NickName: &nickName,
-			},
-		}).Exec(ctx)
-		if err != nil {
-			logger.Error(ctx, err.Error())
-			return nil, gerr.NewWithDetail(ctx, gerr.Internal, err, gerr.ErrorSignInOrSingUpFailed, nickName)
-		}
+	}
+
+	// 4.更新"token"及"loginAt"
+	accessToken, err := senderutil.Generate(
+		pi.Global().Cfg(ctx).IAM.SecretKey, pi.Global().Cfg(ctx).IAM.ExpireTime, user.ID,
+	)
+	if err != nil {
+		logger.Error(ctx, err.Error())
+		return nil, gerr.NewWithDetail(ctx, gerr.Internal, err, gerr.ErrorSignInOrSingUpFailed, nickName)
+	}
+	_, err = pi.Global().MysqlPrisma(ctx).UpdateUser(prisma.UserUpdateParams{
+		Data: prisma.UserUpdateInput{
+			LoginAt: pointerutil.GetStringPointer(timeutil.Time2String(time.Now(), time.RFC3339)),
+			Token:   pointerutil.GetStringPointer(hashutil.GetStringMd5(accessToken)),
+		},
+		Where: prisma.UserWhereUniqueInput{
+			NickName: &nickName,
+		},
+	}).Exec(ctx)
+	if err != nil {
+		logger.Error(ctx, err.Error())
+		return nil, gerr.NewWithDetail(ctx, gerr.Internal, err, gerr.ErrorSignInOrSingUpFailed, nickName)
 	}
 
 	return &pb.SignInOrSignUpResponse{
