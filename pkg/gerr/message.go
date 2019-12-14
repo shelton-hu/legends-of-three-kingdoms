@@ -29,7 +29,6 @@ func (em ErrorMessage) Message(locale string, err error, a ...interface{}) strin
 	}
 }
 
-// IAMManager
 var (
 	ErrorPermissionDenied = ErrorMessage{
 		Name: "permission_denied",
@@ -70,5 +69,14 @@ var (
 		Name: "parameter_should_not_be_empty",
 		en:   "parameter [%s] should not be empty",
 		zhCN: "参数[%s]不应该为空",
+	}
+)
+
+// IAMManager
+var (
+	ErrorSignInOrSingUpFailed = ErrorMessage{
+		Name: "sign_in_or_sign_up_failed",
+		en:   "sign in or sign up failed [nick_name: %s]",
+		zhCN: "快速登录失败[用户昵称: %s]",
 	}
 )

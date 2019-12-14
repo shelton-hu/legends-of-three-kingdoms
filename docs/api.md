@@ -19,8 +19,10 @@
   
 
 - [iam.proto](#iam.proto)
-    - [SignInOrSingUpRequest](#ltk.SignInOrSingUpRequest)
-    - [SignInOrSingUpResponse](#ltk.SignInOrSingUpResponse)
+    - [SignInOrSignUpRequest](#ltk.SignInOrSignUpRequest)
+    - [SignInOrSignUpResponse](#ltk.SignInOrSignUpResponse)
+    - [SignOutRequest](#ltk.SignOutRequest)
+    - [SignOutResponse](#ltk.SignOutResponse)
   
   
   
@@ -121,9 +123,9 @@
 
 
 
-<a name="ltk.SignInOrSingUpRequest"></a>
+<a name="ltk.SignInOrSignUpRequest"></a>
 
-### SignInOrSingUpRequest
+### SignInOrSignUpRequest
 
 
 
@@ -137,15 +139,35 @@
 
 
 
-<a name="ltk.SignInOrSingUpResponse"></a>
+<a name="ltk.SignInOrSignUpResponse"></a>
 
-### SignInOrSingUpResponse
+### SignInOrSignUpResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | access_token | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+
+
+
+
+
+
+<a name="ltk.SignOutRequest"></a>
+
+### SignOutRequest
+
+
+
+
+
+
+
+<a name="ltk.SignOutResponse"></a>
+
+### SignOutResponse
+
 
 
 
@@ -165,7 +187,8 @@
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| SignInOrSingUp | [SignInOrSingUpRequest](#ltk.SignInOrSingUpRequest) | [SignInOrSingUpResponse](#ltk.SignInOrSingUpResponse) |  |
+| SignInOrSignUp | [SignInOrSignUpRequest](#ltk.SignInOrSignUpRequest) | [SignInOrSignUpResponse](#ltk.SignInOrSignUpResponse) |  |
+| SignOut | [SignOutRequest](#ltk.SignOutRequest) | [SignOutResponse](#ltk.SignOutResponse) |  |
 
  
 

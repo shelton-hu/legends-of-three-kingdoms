@@ -9,23 +9,37 @@ import "google/api/annotations.proto";
 import "protoc-gen-swagger/options/annotations.proto";
 
 service TokenService {
-    rpc SignInOrSingUp (SignInOrSingUpRequest) returns (SignInOrSingUpResponse) {
+    rpc SignInOrSignUp (SignInOrSignUpRequest) returns (SignInOrSignUpResponse) {
         option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
-            summary: "注册或登录"
+            summary: "快速登录"
             description: ""
         };
         option (google.api.http) = {
-            post: "/v1/token"
+            post: "/v1/oauth2/token:sign_in_or_sign_up"
             body: "*"
         };
     }
+    rpc SignOut (SignOutRequest) returns (SignOutResponse) {
+        option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+            summary: "登出"
+            description: ""
+        };
+        option (google.api.http) = {
+            post: "/v1/token:sign_out"
+            body: "*"
+        };  
+    }
 }
 
-message SignInOrSingUpRequest {
+message SignInOrSignUpRequest {
     google.protobuf.StringValue nick_name = 1;
     google.protobuf.StringValue password = 2;
 }
 
-message SignInOrSingUpResponse {
+message SignInOrSignUpResponse {
     google.protobuf.StringValue access_token = 3;
 }
+
+message SignOutRequest {}
+
+message SignOutResponse {}

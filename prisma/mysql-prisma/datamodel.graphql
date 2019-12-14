@@ -9,9 +9,9 @@ type User {
     id: ID! @id
     nickName: String! @unique
     password: String
-    sex: Sex
     loginAt: DateTime
-    loginVersion: Int
+    isInGame: Boolean @default(value: false)
+    token: String
     room: Room
 }
 
