@@ -18,8 +18,225 @@
   "produces": [
     "application/json"
   ],
-  "paths": {},
-  "definitions": {},
+  "paths": {
+    "/v1/game": {
+      "post": {
+        "summary": "开始游戏",
+        "operationId": "StartGame",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ltkStartGameResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " (streaming inputs)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ltkStartGameRequets"
+            }
+          }
+        ],
+        "tags": [
+          "GameService"
+        ]
+      }
+    },
+    "/v1/token": {
+      "post": {
+        "summary": "注册或登录",
+        "operationId": "SignInOrSingUp",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ltkSignInOrSingUpResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ltkSignInOrSingUpRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TokenService"
+        ]
+      }
+    },
+    "/v1/rooms": {
+      "get": {
+        "summary": "查看当前房间列表",
+        "operationId": "DescribeRooms",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ltkDescribeRoomsResponse"
+            }
+          }
+        },
+        "tags": [
+          "RoomService"
+        ]
+      },
+      "post": {
+        "summary": "创建房间",
+        "operationId": "CreateRoom",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ltkCreateRoomResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ltkCreateRoomRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RoomService"
+        ]
+      }
+    },
+    "/v1/rooms/{room_id}/come_into": {
+      "post": {
+        "summary": "进入房间",
+        "operationId": "ComeIntoRoom",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ltkComeIntoRoomResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ltkComeIntoRoomRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RoomService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ltkStartGameRequets": {
+      "type": "object"
+    },
+    "ltkStartGameResponse": {
+      "type": "object"
+    },
+    "ltkSignInOrSingUpRequest": {
+      "type": "object",
+      "properties": {
+        "nick_name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "ltkSignInOrSingUpResponse": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string"
+        }
+      }
+    },
+    "ltkComeIntoRoomRequest": {
+      "type": "object",
+      "properties": {
+        "room_id": {
+          "type": "string"
+        }
+      }
+    },
+    "ltkComeIntoRoomResponse": {
+      "type": "object",
+      "properties": {
+        "room_id": {
+          "type": "string"
+        }
+      }
+    },
+    "ltkCreateRoomRequest": {
+      "type": "object",
+      "properties": {
+        "room_nick_name": {
+          "type": "string"
+        }
+      }
+    },
+    "ltkCreateRoomResponse": {
+      "type": "object",
+      "properties": {
+        "room_id": {
+          "type": "string"
+        }
+      }
+    },
+    "ltkDescribeRoomsResponse": {
+      "type": "object",
+      "properties": {
+        "rooms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ltkRoom"
+          }
+        }
+      }
+    },
+    "ltkRoom": {
+      "type": "object",
+      "properties": {
+        "room_id": {
+          "type": "string"
+        },
+        "room_nick_name": {
+          "type": "string"
+        },
+        "user_nick_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
   "securityDefinitions": {
     "BearerAuth": {
       "type": "apiKey",

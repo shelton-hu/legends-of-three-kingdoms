@@ -9,6 +9,38 @@
   
   
 
+- [game.proto](#game.proto)
+    - [StartGameRequets](#ltk.StartGameRequets)
+    - [StartGameResponse](#ltk.StartGameResponse)
+  
+  
+  
+    - [GameService](#ltk.GameService)
+  
+
+- [iam.proto](#iam.proto)
+    - [SignInOrSingUpRequest](#ltk.SignInOrSingUpRequest)
+    - [SignInOrSingUpResponse](#ltk.SignInOrSingUpResponse)
+  
+  
+  
+    - [TokenService](#ltk.TokenService)
+  
+
+- [room.proto](#room.proto)
+    - [ComeIntoRoomRequest](#ltk.ComeIntoRoomRequest)
+    - [ComeIntoRoomResponse](#ltk.ComeIntoRoomResponse)
+    - [CreateRoomRequest](#ltk.CreateRoomRequest)
+    - [CreateRoomResponse](#ltk.CreateRoomResponse)
+    - [DescribeRoomsRequest](#ltk.DescribeRoomsRequest)
+    - [DescribeRoomsResponse](#ltk.DescribeRoomsResponse)
+    - [Room](#ltk.Room)
+  
+  
+  
+    - [RoomService](#ltk.RoomService)
+  
+
 - [types.proto](#types.proto)
     - [ErrorDetail](#ltk.ErrorDetail)
   
@@ -31,6 +63,239 @@
  
 
  
+
+ 
+
+
+
+<a name="game.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## game.proto
+
+
+
+<a name="ltk.StartGameRequets"></a>
+
+### StartGameRequets
+
+
+
+
+
+
+
+<a name="ltk.StartGameResponse"></a>
+
+### StartGameResponse
+
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="ltk.GameService"></a>
+
+### GameService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| StartGame | [StartGameRequets](#ltk.StartGameRequets) stream | [StartGameResponse](#ltk.StartGameResponse) |  |
+
+ 
+
+
+
+<a name="iam.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## iam.proto
+
+
+
+<a name="ltk.SignInOrSingUpRequest"></a>
+
+### SignInOrSingUpRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| nick_name | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+| password | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+
+
+
+
+
+
+<a name="ltk.SignInOrSingUpResponse"></a>
+
+### SignInOrSingUpResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| access_token | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="ltk.TokenService"></a>
+
+### TokenService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| SignInOrSingUp | [SignInOrSingUpRequest](#ltk.SignInOrSingUpRequest) | [SignInOrSingUpResponse](#ltk.SignInOrSingUpResponse) |  |
+
+ 
+
+
+
+<a name="room.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## room.proto
+
+
+
+<a name="ltk.ComeIntoRoomRequest"></a>
+
+### ComeIntoRoomRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| room_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="ltk.ComeIntoRoomResponse"></a>
+
+### ComeIntoRoomResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| room_id | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+
+
+
+
+
+
+<a name="ltk.CreateRoomRequest"></a>
+
+### CreateRoomRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| room_nick_name | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+
+
+
+
+
+
+<a name="ltk.CreateRoomResponse"></a>
+
+### CreateRoomResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| room_id | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+
+
+
+
+
+
+<a name="ltk.DescribeRoomsRequest"></a>
+
+### DescribeRoomsRequest
+
+
+
+
+
+
+
+<a name="ltk.DescribeRoomsResponse"></a>
+
+### DescribeRoomsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| rooms | [Room](#ltk.Room) | repeated |  |
+
+
+
+
+
+
+<a name="ltk.Room"></a>
+
+### Room
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| room_id | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+| room_nick_name | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
+| user_nick_names | [string](#string) | repeated |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="ltk.RoomService"></a>
+
+### RoomService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateRoom | [CreateRoomRequest](#ltk.CreateRoomRequest) | [CreateRoomResponse](#ltk.CreateRoomResponse) |  |
+| ComeIntoRoom | [ComeIntoRoomRequest](#ltk.ComeIntoRoomRequest) | [ComeIntoRoomResponse](#ltk.ComeIntoRoomResponse) |  |
+| DescribeRooms | [DescribeRoomsRequest](#ltk.DescribeRoomsRequest) | [DescribeRoomsResponse](#ltk.DescribeRoomsResponse) |  |
 
  
 
