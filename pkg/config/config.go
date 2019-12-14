@@ -37,8 +37,8 @@ type EtcdConfig struct {
 }
 
 type IAMConfig struct {
-	SecretKey  string        `default:"ltk"` // TODO:need to set
-	ExpireTime time.Duration `default:"2h"`
+	SecretKey  string        `default:"ltk"`
+	ExpireTime time.Duration `default:"24h"`
 }
 
 type ProcessConfig struct {

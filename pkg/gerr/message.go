@@ -80,3 +80,22 @@ var (
 		zhCN: "快速登录失败[用户昵称: %s]",
 	}
 )
+
+// RoomManager
+var (
+	ErrorCreateRoomFailed = ErrorMessage{
+		Name: "create_room_failed",
+		en:   "create room failed",
+		zhCN: "创建房间失败",
+	}
+	ErrorComeIntoRoomFailed = ErrorMessage{
+		Name: "come_into_room_failed",
+		en:   "come into room failed",
+		zhCN: "进入房间失败",
+	}
+	ErrorDescribeRoomsFailed = ErrorMessage{
+		Name: "describe_rooms_failed",
+		en:   "describe rooms failed",
+		zhCN: "获取房间列表失败",
+	}
+)
