@@ -1,6 +1,10 @@
 *.exe
 go.sum
 ltk-v*
+api-gateway
+iam-manager
+room-manager
+game-manager
 
 /.vscode
 .vscode/
