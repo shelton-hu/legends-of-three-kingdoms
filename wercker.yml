@@ -38,8 +38,8 @@ build:
         code: |
           go build ./cmd/api-gateway
           go build ./cmd/iam-manager
-          go build ./cmd/room-engine
-          go build ./cmd/game-engine
+          go build ./cmd/room-manager
+          go build ./cmd/game-manager
 
     # Test the project
     - script:
@@ -56,7 +56,7 @@ deploy:
     - internal/docker-build:
         context: ./prisma/mysql-prisma
         dockerfile: ./Dockerfile
-        image-name: ranklier/phoenix-mysql-prisma-deploy
+        image-name: ranklier/ltk-mysql-prisma-deploy
 
     - internal/docker-push:
         image-name: ranklier/ltk
