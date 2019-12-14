@@ -73,7 +73,7 @@ var Secret          = ""
           params,
           [2]string{"RoomWhereUniqueInput!", "Room"},
           "room",
-          []string{"id","createdAt","roomNo","roomNickName"})
+          []string{"id","createdAt","roomNickName"})
 
         return &RoomExec{ret}
       }
@@ -106,7 +106,7 @@ Last *int32 `json:"last,omitempty"`
           wparams,
           [3]string{"RoomWhereInput", "RoomOrderByInput", "Room"},
           "rooms",
-          []string{"id","createdAt","roomNo","roomNickName"})
+          []string{"id","createdAt","roomNickName"})
 
         return &RoomExecArray{ret}
       }
@@ -228,7 +228,7 @@ Last *int32 `json:"last,omitempty"`
           params,
           [2]string{"RoomCreateInput!", "Room"},
           "createRoom",
-          []string{"id","createdAt","roomNo","roomNickName"})
+          []string{"id","createdAt","roomNickName"})
 
         return &RoomExec{ret}
       }
@@ -245,7 +245,7 @@ Where RoomWhereUniqueInput `json:"where"`
                  },
                  [3]string{"RoomUpdateInput!", "RoomWhereUniqueInput!", "Room"},
                  "updateRoom",
-                 []string{"id","createdAt","roomNo","roomNickName"})
+                 []string{"id","createdAt","roomNickName"})
 
         return &RoomExec{ret}
       }
@@ -280,7 +280,7 @@ Update RoomUpdateInput `json:"update"`
           uparams,
           [4]string{"RoomWhereUniqueInput!", "RoomCreateInput!", "RoomUpdateInput!","Room"},
           "upsertRoom",
-          []string{"id","createdAt","roomNo","roomNickName"})
+          []string{"id","createdAt","roomNickName"})
 
         return &RoomExec{ret}
       }
@@ -290,7 +290,7 @@ Update RoomUpdateInput `json:"update"`
           params,
           [2]string{"RoomWhereUniqueInput!", "Room"},
           "deleteRoom",
-          []string{"id","createdAt","roomNo","roomNickName"})
+          []string{"id","createdAt","roomNickName"})
 
         return &RoomExec{ret}
       }
@@ -400,8 +400,6 @@ UserOrderByInputTokenDesc UserOrderByInput = "token_DESC"
 RoomOrderByInputIDDesc RoomOrderByInput = "id_DESC"
 RoomOrderByInputCreatedAtAsc RoomOrderByInput = "createdAt_ASC"
 RoomOrderByInputCreatedAtDesc RoomOrderByInput = "createdAt_DESC"
-RoomOrderByInputRoomNoAsc RoomOrderByInput = "roomNo_ASC"
-RoomOrderByInputRoomNoDesc RoomOrderByInput = "roomNo_DESC"
 RoomOrderByInputRoomNickNameAsc RoomOrderByInput = "roomNickName_ASC"
 RoomOrderByInputRoomNickNameDesc RoomOrderByInput = "roomNickName_DESC"
           )
@@ -427,8 +425,6 @@ UpdateMany []UserUpdateManyWithWhereNestedInput `json:"updateMany,omitempty"`
 
       type RoomWhereUniqueInput struct {
         ID *string `json:"id,omitempty"`
-RoomNo *string `json:"roomNo,omitempty"`
-RoomNickName *string `json:"roomNickName,omitempty"`
           }
 
       type UserUpdateWithoutRoomDataInput struct {
@@ -541,20 +537,6 @@ CreatedAtLt *string `json:"createdAt_lt,omitempty"`
 CreatedAtLte *string `json:"createdAt_lte,omitempty"`
 CreatedAtGt *string `json:"createdAt_gt,omitempty"`
 CreatedAtGte *string `json:"createdAt_gte,omitempty"`
-RoomNo *string `json:"roomNo,omitempty"`
-RoomNoNot *string `json:"roomNo_not,omitempty"`
-RoomNoIn []string `json:"roomNo_in,omitempty"`
-RoomNoNotIn []string `json:"roomNo_not_in,omitempty"`
-RoomNoLt *string `json:"roomNo_lt,omitempty"`
-RoomNoLte *string `json:"roomNo_lte,omitempty"`
-RoomNoGt *string `json:"roomNo_gt,omitempty"`
-RoomNoGte *string `json:"roomNo_gte,omitempty"`
-RoomNoContains *string `json:"roomNo_contains,omitempty"`
-RoomNoNotContains *string `json:"roomNo_not_contains,omitempty"`
-RoomNoStartsWith *string `json:"roomNo_starts_with,omitempty"`
-RoomNoNotStartsWith *string `json:"roomNo_not_starts_with,omitempty"`
-RoomNoEndsWith *string `json:"roomNo_ends_with,omitempty"`
-RoomNoNotEndsWith *string `json:"roomNo_not_ends_with,omitempty"`
 RoomNickName *string `json:"roomNickName,omitempty"`
 RoomNickNameNot *string `json:"roomNickName_not,omitempty"`
 RoomNickNameIn []string `json:"roomNickName_in,omitempty"`
@@ -656,8 +638,7 @@ Not []UserScalarWhereInput `json:"NOT,omitempty"`
 
       type RoomCreateInput struct {
         ID *string `json:"id,omitempty"`
-RoomNo string `json:"roomNo"`
-RoomNickName string `json:"roomNickName"`
+RoomNickName *string `json:"roomNickName,omitempty"`
 Players *UserCreateManyWithoutRoomInput `json:"players,omitempty"`
           }
 
@@ -697,8 +678,7 @@ NickName *string `json:"nickName,omitempty"`
           }
 
       type RoomUpdateInput struct {
-        RoomNo *string `json:"roomNo,omitempty"`
-RoomNickName *string `json:"roomNickName,omitempty"`
+        RoomNickName *string `json:"roomNickName,omitempty"`
 Players *UserUpdateManyWithoutRoomInput `json:"players,omitempty"`
           }
 
@@ -736,8 +716,7 @@ Token *string `json:"token,omitempty"`
           }
 
       type RoomUpdateManyMutationInput struct {
-        RoomNo *string `json:"roomNo,omitempty"`
-RoomNickName *string `json:"roomNickName,omitempty"`
+        RoomNickName *string `json:"roomNickName,omitempty"`
           }
 
       type UserCreateInput struct {
@@ -765,8 +744,7 @@ Token *string `json:"token,omitempty"`
 
       type RoomCreateWithoutPlayersInput struct {
         ID *string `json:"id,omitempty"`
-RoomNo string `json:"roomNo"`
-RoomNickName string `json:"roomNickName"`
+RoomNickName *string `json:"roomNickName,omitempty"`
           }
 
       type RoomUpdateOneWithoutPlayersInput struct {
@@ -779,8 +757,7 @@ Connect *RoomWhereUniqueInput `json:"connect,omitempty"`
           }
 
       type RoomUpdateWithoutPlayersDataInput struct {
-        RoomNo *string `json:"roomNo,omitempty"`
-RoomNickName *string `json:"roomNickName,omitempty"`
+        RoomNickName *string `json:"roomNickName,omitempty"`
           }
 
 
@@ -821,7 +798,7 @@ RoomNickName *string `json:"roomNickName,omitempty"`
 NickName string `json:"nickName"`
 Password *string `json:"password,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-IsInGame *bool `json:"isInGame,omitempty"`
+IsInGame bool `json:"isInGame"`
 Token *string `json:"token,omitempty"`
         }
 
@@ -837,7 +814,7 @@ Token *string `json:"token,omitempty"`
                     nil,
                     [2]string{"", "Room"},
                     "room",
-                    []string{"id","createdAt","roomNo","roomNickName"})
+                    []string{"id","createdAt","roomNickName"})
 
                   return &RoomExec{ret}
                 }
@@ -873,7 +850,7 @@ Token *string `json:"token,omitempty"`
 NickName string `json:"nickName"`
 Password *string `json:"password,omitempty"`
 LoginAt *string `json:"loginAt,omitempty"`
-IsInGame *bool `json:"isInGame,omitempty"`
+IsInGame bool `json:"isInGame"`
 Token *string `json:"token,omitempty"`
         }
 
@@ -888,7 +865,7 @@ Token *string `json:"token,omitempty"`
                     nil,
                     [2]string{"", "Room"},
                     "node",
-                    []string{"id","createdAt","roomNo","roomNickName"})
+                    []string{"id","createdAt","roomNickName"})
 
                   return &RoomExec{ret}
                 }
@@ -925,35 +902,46 @@ Cursor string `json:"cursor"`
         }
 
 
-        type RoomSubscriptionPayloadExec struct {
+        type RoomExec struct {
           exec *prisma.Exec
         }
 
         
-                func (instance *RoomSubscriptionPayloadExec) Node() *RoomExec {
-                  ret := instance.exec.Client.GetOne(
-                    instance.exec,
-                    nil,
-                    [2]string{"", "Room"},
-                    "node",
-                    []string{"id","createdAt","roomNo","roomNickName"})
+                type PlayersParamsExec struct {
+                  Where *UserWhereInput
+OrderBy *UserOrderByInput
+Skip *int32
+After *string
+Before *string
+First *int32
+Last *int32
+                }
+                func (instance *RoomExec) Players(params *PlayersParamsExec) *UserExecArray {
+                  var wparams *prisma.WhereParams
+                  if params != nil {
+                    wparams = &prisma.WhereParams{
+                      Where: params.Where,
+                      OrderBy: (*string)(params.OrderBy),
+                      Skip: params.Skip,
+                      After: params.After,
+                      Before: params.Before,
+                      First: params.First,
+                      Last: params.Last,
+                    }
+                  }
 
-                  return &RoomExec{ret}
+                  ret := instance.exec.Client.GetMany(
+                    instance.exec,
+                    wparams,
+                    [3]string{"UserWhereInput", "UserOrderByInput", "User"},
+                    "players",
+                    []string{"id","nickName","password","loginAt","isInGame","token"})
+
+                  return &UserExecArray{ret}
                 }
 
-                func (instance *RoomSubscriptionPayloadExec) PreviousValues() *RoomPreviousValuesExec {
-                  ret := instance.exec.Client.GetOne(
-                    instance.exec,
-                    nil,
-                    [2]string{"", "RoomPreviousValues"},
-                    "previousValues",
-                    []string{"id","createdAt","roomNo","roomNickName"})
-
-                  return &RoomPreviousValuesExec{ret}
-                }
-
-          func (instance RoomSubscriptionPayloadExec) Exec(ctx context.Context) (*RoomSubscriptionPayload, error) {
-            var v RoomSubscriptionPayload
+          func (instance RoomExec) Exec(ctx context.Context) (*Room, error) {
+            var v Room
             ok, err := instance.exec.Exec(ctx, &v)
             if err != nil {
               return nil, err
@@ -964,24 +952,24 @@ Cursor string `json:"cursor"`
             return &v, nil
           }
 
-          func (instance RoomSubscriptionPayloadExec) Exists(ctx context.Context) (bool, error) {
+          func (instance RoomExec) Exists(ctx context.Context) (bool, error) {
             return instance.exec.Exists(ctx)
           }
 
-          type RoomSubscriptionPayloadExecArray struct {
+          type RoomExecArray struct {
             exec *prisma.Exec
           }
 
-          func (instance RoomSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]RoomSubscriptionPayload, error) {
-            var v []RoomSubscriptionPayload
+          func (instance RoomExecArray) Exec(ctx context.Context) ([]Room, error) {
+            var v []Room
             err := instance.exec.ExecArray(ctx, &v)
             return v, err
           }
 
-        type RoomSubscriptionPayload struct {
-          Mutation MutationType `json:"mutation"`
-Node *Room `json:"node,omitempty"`
-UpdatedFields []string `json:"updatedFields,omitempty"`
+        type Room struct {
+          ID string `json:"id"`
+CreatedAt string `json:"createdAt"`
+RoomNickName *string `json:"roomNickName,omitempty"`
         }
 
         type RoomConnectionExec struct {
@@ -1062,6 +1050,65 @@ UpdatedFields []string `json:"updatedFields,omitempty"`
 Edges []RoomEdge `json:"edges"`
         }
 
+        type RoomSubscriptionPayloadExec struct {
+          exec *prisma.Exec
+        }
+
+        
+                func (instance *RoomSubscriptionPayloadExec) Node() *RoomExec {
+                  ret := instance.exec.Client.GetOne(
+                    instance.exec,
+                    nil,
+                    [2]string{"", "Room"},
+                    "node",
+                    []string{"id","createdAt","roomNickName"})
+
+                  return &RoomExec{ret}
+                }
+
+                func (instance *RoomSubscriptionPayloadExec) PreviousValues() *RoomPreviousValuesExec {
+                  ret := instance.exec.Client.GetOne(
+                    instance.exec,
+                    nil,
+                    [2]string{"", "RoomPreviousValues"},
+                    "previousValues",
+                    []string{"id","createdAt","roomNickName"})
+
+                  return &RoomPreviousValuesExec{ret}
+                }
+
+          func (instance RoomSubscriptionPayloadExec) Exec(ctx context.Context) (*RoomSubscriptionPayload, error) {
+            var v RoomSubscriptionPayload
+            ok, err := instance.exec.Exec(ctx, &v)
+            if err != nil {
+              return nil, err
+            }
+            if !ok {
+              return nil, ErrNoResult
+            }
+            return &v, nil
+          }
+
+          func (instance RoomSubscriptionPayloadExec) Exists(ctx context.Context) (bool, error) {
+            return instance.exec.Exists(ctx)
+          }
+
+          type RoomSubscriptionPayloadExecArray struct {
+            exec *prisma.Exec
+          }
+
+          func (instance RoomSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]RoomSubscriptionPayload, error) {
+            var v []RoomSubscriptionPayload
+            err := instance.exec.ExecArray(ctx, &v)
+            return v, err
+          }
+
+        type RoomSubscriptionPayload struct {
+          Mutation MutationType `json:"mutation"`
+Node *Room `json:"node,omitempty"`
+UpdatedFields []string `json:"updatedFields,omitempty"`
+        }
+
         type RoomPreviousValuesExec struct {
           exec *prisma.Exec
         }
@@ -1097,79 +1144,7 @@ Edges []RoomEdge `json:"edges"`
         type RoomPreviousValues struct {
           ID string `json:"id"`
 CreatedAt string `json:"createdAt"`
-RoomNo string `json:"roomNo"`
-RoomNickName string `json:"roomNickName"`
-        }
-
-        type RoomExec struct {
-          exec *prisma.Exec
-        }
-
-        
-                type PlayersParamsExec struct {
-                  Where *UserWhereInput
-OrderBy *UserOrderByInput
-Skip *int32
-After *string
-Before *string
-First *int32
-Last *int32
-                }
-                func (instance *RoomExec) Players(params *PlayersParamsExec) *UserExecArray {
-                  var wparams *prisma.WhereParams
-                  if params != nil {
-                    wparams = &prisma.WhereParams{
-                      Where: params.Where,
-                      OrderBy: (*string)(params.OrderBy),
-                      Skip: params.Skip,
-                      After: params.After,
-                      Before: params.Before,
-                      First: params.First,
-                      Last: params.Last,
-                    }
-                  }
-
-                  ret := instance.exec.Client.GetMany(
-                    instance.exec,
-                    wparams,
-                    [3]string{"UserWhereInput", "UserOrderByInput", "User"},
-                    "players",
-                    []string{"id","nickName","password","loginAt","isInGame","token"})
-
-                  return &UserExecArray{ret}
-                }
-
-          func (instance RoomExec) Exec(ctx context.Context) (*Room, error) {
-            var v Room
-            ok, err := instance.exec.Exec(ctx, &v)
-            if err != nil {
-              return nil, err
-            }
-            if !ok {
-              return nil, ErrNoResult
-            }
-            return &v, nil
-          }
-
-          func (instance RoomExec) Exists(ctx context.Context) (bool, error) {
-            return instance.exec.Exists(ctx)
-          }
-
-          type RoomExecArray struct {
-            exec *prisma.Exec
-          }
-
-          func (instance RoomExecArray) Exec(ctx context.Context) ([]Room, error) {
-            var v []Room
-            err := instance.exec.ExecArray(ctx, &v)
-            return v, err
-          }
-
-        type Room struct {
-          ID string `json:"id"`
-CreatedAt string `json:"createdAt"`
-RoomNo string `json:"roomNo"`
-RoomNickName string `json:"roomNickName"`
+RoomNickName *string `json:"roomNickName,omitempty"`
         }
 
         type UserSubscriptionPayloadExec struct {

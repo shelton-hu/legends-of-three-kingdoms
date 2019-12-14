@@ -296,7 +296,6 @@
 | ----- | ---- | ----- | ----------- |
 | room_id | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
 | room_nick_name | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
-| user_nick_names | [string](#string) | repeated |  |
 
 
 

@@ -27,7 +27,6 @@ import (
 
 	staticSpec "github.com/shelton-hu/legends-of-three-kingdoms/pkg/apigateway/spec"
 	staticSwaggerUI "github.com/shelton-hu/legends-of-three-kingdoms/pkg/apigateway/swagger-ui"
-	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/config"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/constants"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/gerr"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/logger"
@@ -39,9 +38,7 @@ import (
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/version"
 )
 
-type Server struct {
-	config.IAMConfig
-}
+type Server struct{}
 
 type register struct {
 	f        func(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error)
@@ -218,6 +215,10 @@ func (s *Server) mainHandler() http.Handler {
 			pb.RegisterTokenServiceHandlerFromEndpoint,
 			fmt.Sprintf("%s:%d", constants.IAMManagerHost, constants.IAMManagerPort),
 		},
+		{
+			pb.RegisterRoomServiceHandlerFromEndpoint,
+			fmt.Sprintf("%s:%d", constants.RoomManagerHost, constants.RoomManagerPort),
+		},
 	} {
 		err = r.f(ctx, gwmux, r.endpoint, opts)
 		if err != nil {
@@ -228,7 +229,7 @@ func (s *Server) mainHandler() http.Handler {
 
 	mux := http.NewServeMux()
 
-	mux.Handle("/", serveMuxSetSender(gwmux, s.IAMConfig.SecretKey))
+	mux.Handle("/", serveMuxSetSender(gwmux, pi.Global().Cfg(ctx).IAM.SecretKey))
 
 	return formWrapper(mux)
 }

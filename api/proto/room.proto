@@ -65,5 +65,4 @@ message DescribeRoomsResponse {
 message Room {
     google.protobuf.StringValue room_id = 1;
     google.protobuf.StringValue room_nick_name = 2;
-    repeated string user_nick_names = 3;
 }

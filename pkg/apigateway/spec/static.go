@@ -265,12 +265,6 @@ var Files = map[string]string{
         },
         "room_nick_name": {
           "type": "string"
-        },
-        "user_nick_names": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         }
       }
     }

@@ -42,7 +42,7 @@ func (s *Server) SignInOrSignUp(ctx context.Context, req *pb.SignInOrSignUpReque
 			return nil, gerr.NewWithDetail(ctx, gerr.Internal, err, gerr.ErrorSignInOrSingUpFailed, nickName)
 		}
 	} else {
-		if pointerutil.GetBool(user.IsInGame) {
+		if user.IsInGame {
 			logger.Error(ctx, ErrAlreadyInGame.Error())
 			return nil, gerr.NewWithDetail(ctx, gerr.Internal, ErrAlreadyInGame, gerr.ErrorSignInOrSingUpFailed, nickName)
 		}

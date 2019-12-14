@@ -10,7 +10,7 @@ type User {
     nickName: String! @unique
     password: String
     loginAt: DateTime
-    isInGame: Boolean @default(value: false)
+    isInGame: Boolean! @default(value: false)
     token: String
     room: Room
 }
@@ -19,7 +19,6 @@ type User {
 type Room {
     id: ID! @id
     createdAt: DateTime! @createdAt
-    roomNo: String! @unique
-    roomNickName: String! @unique
+    roomNickName: String
     players: [User]!
 }
