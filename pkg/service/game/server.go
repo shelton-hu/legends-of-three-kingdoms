@@ -7,6 +7,7 @@ import (
 
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/constants"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/manager"
+	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/pb"
 	"github.com/shelton-hu/legends-of-three-kingdoms/pkg/pi"
 )
 
@@ -20,5 +21,6 @@ func Serve() {
 		WithChecker(s.Checker).
 		WithBuilder(s.Builder).
 		Serve(func(server *grpc.Server) {
+			pb.RegisterGameServiceServer(server, &s)
 		})
 }

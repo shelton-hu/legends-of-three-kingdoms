@@ -4,12 +4,12 @@ package ltk;
 // set go package name to pb
 option go_package = "pb";
 
-// import "google/protobuf/wrappers.proto";
+import "google/protobuf/wrappers.proto";
 import "google/api/annotations.proto";
 import "protoc-gen-swagger/options/annotations.proto";
 
 service GameService {
-    rpc StartGame (stream StartGameRequets) returns (StartGameResponse) {
+    rpc StartGame (stream StartGameRequest) returns (StartGameResponse) {
         option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
             summary: "开始游戏"
             description: ""
@@ -21,6 +21,10 @@ service GameService {
     }
 }
 
-message StartGameRequets {}
+message StartGameRequest {
+    google.protobuf.StringValue choice = 1;
+}
 
-message StartGameResponse {}
+message StartGameResponse {
+    google.protobuf.StringValue show = 1;
+}

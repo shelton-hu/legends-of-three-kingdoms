@@ -43,7 +43,7 @@ var Files = map[string]string{
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ltkStartGameRequets"
+              "$ref": "#/definitions/ltkStartGameRequest"
             }
           }
         ],
@@ -183,11 +183,21 @@ var Files = map[string]string{
     }
   },
   "definitions": {
-    "ltkStartGameRequets": {
-      "type": "object"
+    "ltkStartGameRequest": {
+      "type": "object",
+      "properties": {
+        "choice": {
+          "type": "string"
+        }
+      }
     },
     "ltkStartGameResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "show": {
+          "type": "string"
+        }
+      }
     },
     "ltkSignInOrSignUpRequest": {
       "type": "object",

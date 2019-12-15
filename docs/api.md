@@ -10,7 +10,7 @@
   
 
 - [game.proto](#game.proto)
-    - [StartGameRequets](#ltk.StartGameRequets)
+    - [StartGameRequest](#ltk.StartGameRequest)
     - [StartGameResponse](#ltk.StartGameResponse)
   
   
@@ -77,10 +77,15 @@
 
 
 
-<a name="ltk.StartGameRequets"></a>
+<a name="ltk.StartGameRequest"></a>
 
-### StartGameRequets
+### StartGameRequest
 
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| choice | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
 
 
 
@@ -91,6 +96,11 @@
 
 ### StartGameResponse
 
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| show | [google.protobuf.StringValue](#google.protobuf.StringValue) |  |  |
 
 
 
@@ -110,7 +120,7 @@
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| StartGame | [StartGameRequets](#ltk.StartGameRequets) stream | [StartGameResponse](#ltk.StartGameResponse) |  |
+| StartGame | [StartGameRequest](#ltk.StartGameRequest) stream | [StartGameResponse](#ltk.StartGameResponse) |  |
 
  
 

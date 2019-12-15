@@ -37,7 +37,7 @@ func request_GameService_StartGame_0(ctx context.Context, marshaler runtime.Mars
 	}
 	dec := marshaler.NewDecoder(req.Body)
 	for {
-		var protoReq StartGameRequets
+		var protoReq StartGameRequest
 		err = dec.Decode(&protoReq)
 		if err == io.EOF {
 			break
