@@ -219,6 +219,10 @@ func (s *Server) mainHandler() http.Handler {
 			pb.RegisterRoomServiceHandlerFromEndpoint,
 			fmt.Sprintf("%s:%d", constants.RoomManagerHost, constants.RoomManagerPort),
 		},
+		{
+			pb.RegisterGameServiceHandlerFromEndpoint,
+			fmt.Sprintf("%s:%d", constants.GameManagerHost, constants.GameManagerPort),
+		},
 	} {
 		err = r.f(ctx, gwmux, r.endpoint, opts)
 		if err != nil {
