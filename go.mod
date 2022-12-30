@@ -17,10 +17,10 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/fatih/camelcase v1.0.0
 	github.com/fatih/structs v1.1.0
-	github.com/gin-gonic/gin v1.5.0
+	github.com/gin-gonic/gin v1.7.0
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/golang/groupcache v0.0.0-20191027212112-611e8accdfc9 // indirect
-	github.com/golang/protobuf v1.3.2
+	github.com/golang/protobuf v1.3.3
 	github.com/google/btree v1.0.0 // indirect
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/gorilla/websocket v1.4.1 // indirect
@@ -28,7 +28,6 @@ require (
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.12.1
 	github.com/jonboulle/clockwork v0.1.0 // indirect
-	github.com/json-iterator/go v1.1.8 // indirect
 	github.com/koding/multiconfig v0.0.0-20171124222453-69c27309b2d7
 	github.com/machinebox/graphql v0.2.2
 	github.com/matryer/is v1.2.0 // indirect
@@ -44,13 +43,11 @@ require (
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	go.etcd.io/bbolt v1.3.3 // indirect
 	go.uber.org/zap v1.13.0 // indirect
-	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect
 	golang.org/x/net v0.0.0-20191207000613-e7e4b65ae663
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
 	golang.org/x/tools v0.0.0-20191206204035-259af5ff87bd
 	google.golang.org/genproto v0.0.0-20191206224255-0243a4be9c8f
 	google.golang.org/grpc v1.25.1
 	gopkg.in/square/go-jose.v2 v2.4.0
-	openpitrix.io/iam v0.1.0
 	sigs.k8s.io/yaml v1.1.0 // indirect
 )
